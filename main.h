@@ -8,7 +8,7 @@ void itoh(unsigned char i, char buffer[3]) {
         n -= 10; 
     } else {
         c = '0';
-    }   
+    }
     buffer[0] = c + n;
     n = i & 0x0f;
     if(n > 9) {
@@ -16,7 +16,7 @@ void itoh(unsigned char i, char buffer[3]) {
         n -= 10; 
     } else {
         c = '0';
-    }   
+    }
     buffer[1] = c + n;
     buffer[2] = 0;
 }

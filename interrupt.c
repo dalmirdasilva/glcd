@@ -29,10 +29,20 @@ SIGHANDLER(timer_0_handler) {
     if(ps++ == 0x0ff0) {
         ps = 0;
         lcd_put_string_at("SIGHANDLER", 0, 0, 100);
-        if(glcd_status_info & 0x01) {
-            lcd_put_string_at("Error!", 0, 1, 100);
+        if(glcd_get_out_of_range_flag()) {
+            lcd_put_string("or:1,", 100);
         } else {
-            lcd_put_string_at("Write!", 0, 1, 100);
+            lcd_put_string("or:0,", 100);
+        }
+        if(glcd_get_write_timeout_flag()) {
+            lcd_put_string("wt:1,", 100);
+        } else {
+            lcd_put_string("wt:0,", 100);
+        }
+        if(glcd_get_read_in_all_chips()) {
+            lcd_put_string("ra:1,", 100);
+        } else {
+            lcd_put_string("ra:0,", 100);
         }
         
     }

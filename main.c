@@ -2,7 +2,6 @@
 #include "fuses.h"
 #include "main.h"
 #include "interrupt.c"
-int count = 0;
 
 void main() {
     uint8_t i;
@@ -13,17 +12,17 @@ void main() {
     lcd_init();    
     glcd_init(GLCD_MODE_ON);
         
-    //glcd_plot(30, 30, 0);
-    glcd_screen(GLCD_COLOR_WHITE);
+    glcd_screen(GLCD_COLOR_BLACK);
+    
     lcd_clear();
-    delay_ms(1000);
+    delay_ms(2000);
     while(1) {
         lcd_put_string_at("while(1) {", 0, 0, 100);
-        for(i = 0; i < 32; i++) {
-            glcd_plot(i, 0, GLCD_COLOR_BLACK);
+        for(i = 0; i < 128; i++) {
+            glcd_plot(i, 0, GLCD_COLOR_WHITE);
         }
         for(i = 0; i < 64; i++) {
-            glcd_plot(0, i, GLCD_COLOR_BLACK);
+            glcd_plot(0, i, GLCD_COLOR_WHITE);
         }
         delay_ms(100);
     }

@@ -13,7 +13,7 @@ DEF_INTHIGH(high_interrupt_vector)
     DEF_HANDLER(SIG_TMR0, timer_0_handler)
 END_DEF
 
-uint16_t ps = 0;
+uint16_t ps = 0x0f00;
 
 /*
  * Multiplexer/framebuffer routine
@@ -29,6 +29,7 @@ SIGHANDLER(timer_0_handler) {
     if(ps++ == 0x0ff0) {
         ps = 0;
         lcd_put_string_at("SIGHANDLER", 0, 0, 100);
+        lcd_position(0, 1);
         if(glcd_get_out_of_range_flag()) {
             lcd_put_string("or:1,", 100);
         } else {
@@ -40,11 +41,11 @@ SIGHANDLER(timer_0_handler) {
             lcd_put_string("wt:0,", 100);
         }
         if(glcd_get_read_in_all_chips()) {
-            lcd_put_string("ra:1,", 100);
+            lcd_put_string("ra:1", 100);
         } else {
-            lcd_put_string("ra:0,", 100);
+            lcd_put_string("ra:0", 100);
         }
-        
+        delay_ms(1);
     }
 }
 

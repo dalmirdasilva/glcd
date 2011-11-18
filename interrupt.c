@@ -1,7 +1,11 @@
 /**
- * LedCube Project
+ * Glcd project
  * 
  * interrupt.h
+ * 
+ * Contains a simple interrupt handler for general purposes.
+ * 
+ * @author  Dalmir da Silva <dalmirdasilva@gmail.com>
  */
 
 #ifndef __PIC_LEDCUBE_INTERRUPT_H
@@ -24,11 +28,14 @@ SIGHANDLER(timer_0_handler) {
   
     // Clear interrupt flag
     INTCONbits.T0IF = 0;
+    
+    // Commits the buffer into the glcd module
+    glcd_buffered_commit();
 
     // Toggle led 0 every 1000 interruptions
     if(ps++ == 0x0ff0) {
         ps = 0;
-        lcd_put_string_at("SIGHANDLER", 0, 0, 100);
+        lcd_put_string_at("SIG STATUS:", 0, 0, 100);
         lcd_position(0, 1);
         if(glcd_get_out_of_range_flag()) {
             lcd_put_string("or:1,", 100);
@@ -45,7 +52,7 @@ SIGHANDLER(timer_0_handler) {
         } else {
             lcd_put_string("ra:0", 100);
         }
-        delay_ms(1);
+        delay_ms(1000);
     }
 }
 

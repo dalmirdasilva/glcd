@@ -1,3 +1,11 @@
+/**
+ * Glcd project
+ * 
+ * main.c
+ * 
+ * @author  Dalmir da Silva <dalmirdasilva@gmail.com>
+ */
+
 #include <pic18f4550.h>
 #include "fuses.h"
 #include "main.h"

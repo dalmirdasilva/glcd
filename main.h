@@ -1,3 +1,10 @@
+/**
+ * Glcd project
+ * 
+ * main.h
+ * 
+ * @author  Dalmir da Silva <dalmirdasilva@gmail.com>
+ */
 
 void itoh(unsigned char i, char buffer[3]) {
     char c;
@@ -25,6 +32,9 @@ void itoh(unsigned char i, char buffer[3]) {
 #include <lcd.c>
 #include <lcd_string.c>
 #include <glcd.c>
+#include <glcd_buffered.c>
+
+#define GLCD_PLOT(x, y, color)  glcd_buffered_plot((x), (y), (color))
 
 void init_io();
 void init_interrupt();

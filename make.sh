@@ -24,7 +24,7 @@ cd $BUILD_DIR
 echo "Entering in the build dir (${BUILD_DIR})"
 
 echo -n "Compiling..."
-sdcc --opt-code-size $TARGET.c $INCLUDES $ARCH $CHIP
+sdcc --opt-code-size -Wl,-s,/home/dalmir/storage/github/glcd/custom_linker.lkr $TARGET.c $INCLUDES $ARCH $CHIP
 
 echo "ok."
 

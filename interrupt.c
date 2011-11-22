@@ -17,7 +17,7 @@ DEF_INTHIGH(high_interrupt_vector)
     DEF_HANDLER(SIG_TMR0, timer_0_handler)
 END_DEF
 
-uint16_t ps = 0x0f00;
+uint8_t ps = 0xff;
 
 /*
  * Multiplexer/framebuffer routine
@@ -29,31 +29,18 @@ SIGHANDLER(timer_0_handler) {
     // Clear interrupt flag
     INTCONbits.T0IF = 0;
     
-    // Commits the buffer into the glcd module
-    glcd_buffered_commit();
+    // Disable ie while commiting
+    INTCONbits.GIE = 0;
+    
+    if(--ps == 0) {
+        ps = 0x1f;
 
-    // Toggle led 0 every 1000 interruptions
-    if(ps++ == 0x0ff0) {
-        ps = 0;
-        lcd_put_string_at("SIG STATUS:", 0, 0, 100);
-        lcd_position(0, 1);
-        if(glcd_get_out_of_range_flag()) {
-            lcd_put_string("or:1,", 100);
-        } else {
-            lcd_put_string("or:0,", 100);
-        }
-        if(glcd_get_write_timeout_flag()) {
-            lcd_put_string("wt:1,", 100);
-        } else {
-            lcd_put_string("wt:0,", 100);
-        }
-        if(glcd_get_read_in_all_chips()) {
-            lcd_put_string("ra:1", 100);
-        } else {
-            lcd_put_string("ra:0", 100);
-        }
-        delay_ms(1000);
+        // Commits the buffer into the glcd module
+        glcd_buffered_commit();
     }
+    
+    // Enable after commit
+    INTCONbits.GIE = 1;
 }
 
 #endif // __PIC_LEDCUBE_INTERRUPT_H

@@ -12,27 +12,28 @@
 #include "interrupt.c"
 
 void main() {
-    uint8_t i;
+    uint8_t k = 0, i;
     _asm bcf _WDTCON, 0 _endasm;
+    INTCONbits.GIE = 0;
     
     init_io();
-    init_interrupt();
     lcd_init();    
     glcd_init(GLCD_MODE_ON);
-        
-    glcd_screen(GLCD_COLOR_BLACK);
-    
-    lcd_clear();
-    delay_ms(2000);
+    glcd_buffered_init();
+    init_interrupt();
     while(1) {
-        lcd_put_string_at("while(1) {", 0, 0, 100);
+        delay_ms(100);
         for(i = 0; i < 128; i++) {
-            glcd_plot(i, 0, GLCD_COLOR_WHITE);
+            //glcd_plot(i, 0, GLCD_COLOR_WHITE);
         }
         for(i = 0; i < 64; i++) {
-            glcd_plot(0, i, GLCD_COLOR_WHITE);
+            //glcd_plot(0, i, GLCD_COLOR_WHITE);
         }
-        delay_ms(100);
+        if(k == 0) {
+            k = 0xf0;
+            //glcd_scroll(GLCD_CHIP_1, GLCD_SCROLL_DOWN, 2);
+            //glcd_scroll(GLCD_CHIP_2, GLCD_SCROLL_UP, 1);
+        }
     }
 }
 

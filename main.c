@@ -5,11 +5,12 @@
  * 
  * @author  Dalmir da Silva <dalmirdasilva@gmail.com>
  */
-
+ 
 #include <pic18f4550.h>
 #include "fuses.h"
 #include "main.h"
 #include "interrupt.c"
+
 
 void main() {
     uint8_t k = 0, i;
@@ -24,15 +25,17 @@ void main() {
     while(1) {
         delay_ms(100);
         for(i = 0; i < 128; i++) {
-            //glcd_plot(i, 0, GLCD_COLOR_WHITE);
+            
+            //glcd_draw_circle(1, 2, 10, 0x3);
+            glcd_plot(i, 0, GLCD_COLOR_WHITE);
         }
         for(i = 0; i < 64; i++) {
-            //glcd_plot(0, i, GLCD_COLOR_WHITE);
+            glcd_plot(0, i, GLCD_COLOR_WHITE);
         }
         if(k == 0) {
             k = 0xf0;
-            //glcd_scroll(GLCD_CHIP_1, GLCD_SCROLL_DOWN, 2);
-            //glcd_scroll(GLCD_CHIP_2, GLCD_SCROLL_UP, 1);
+            glcd_scroll(GLCD_CHIP_1, GLCD_SCROLL_DOWN, 2);
+            glcd_scroll(GLCD_CHIP_2, GLCD_SCROLL_UP, 1);
         }
     }
 }

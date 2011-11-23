@@ -31,6 +31,16 @@ void itoh(unsigned char i, char buffer[3]) {
 #include <delay.h>
 #include <lcd.c>
 #include <lcd_string.c>
+
+#include <glcd.h>
+#include <glcd_buffered.h>
+#ifndef GLCD_GET_AT
+    #define GLCD_GET_AT(chip, page, line)               glcd_buffered_get_at(chip, page, line)
+#endif
+
+#ifndef GLCD_SEND_AT
+    #define GLCD_SEND_AT(chip, page, line, byte)        glcd_buffered_send_at(chip, page, line, byte)
+#endif
 #include <glcd.c>
 #include <glcd_buffered.c>
 #include <glcd_draw.c>

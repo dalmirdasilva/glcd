@@ -3,6 +3,7 @@ INCLUDES="-I/home/dalmir/Dropbox/Microcontrollers/picnix/ \
           -I/home/dalmir/storage/github/pic/sdcc/library/graphic/lcd/ \
           -I/home/dalmir/storage/github/pic/sdcc/driver/graphic/glcd/ \
           -I/home/dalmir/storage/github/pic/sdcc/library/graphic/glcd/ \
+          -I/home/dalmir/storage/github/pic/sdcc/include/util/step_report/ \
           -I/home/dalmir/storage/github/pic/sdcc/include/ "
 BUILD_DIR=build
 TARGET=main

@@ -11,32 +11,35 @@
 #include "main.h"
 #include "interrupt.c"
 
-
 void main() {
-    uint8_t k = 0, i;
+    uint8_t k = 0, i, step = 0;
     _asm bcf _WDTCON, 0 _endasm;
     INTCONbits.GIE = 0;
     
     init_io();
     lcd_init();    
     glcd_init(GLCD_MODE_ON);
-    glcd_buffered_init();
+    
     init_interrupt();
-    while(1) {
-        delay_ms(100);
-        for(i = 0; i < 128; i++) {
+    step_report_init(100);
             
-            //glcd_draw_circle(1, 2, 10, 0x3);
-            glcd_plot(i, 0, GLCD_COLOR_WHITE);
-        }
-        for(i = 0; i < 64; i++) {
-            glcd_plot(0, i, GLCD_COLOR_WHITE);
-        }
-        if(k == 0) {
-            k = 0xf0;
-            glcd_scroll(GLCD_CHIP_1, GLCD_SCROLL_DOWN, 2);
-            glcd_scroll(GLCD_CHIP_2, GLCD_SCROLL_UP, 1);
-        }
+    for(i = 0; i < 128; i++) {
+        glcd_plot(i, 0, GLCD_COLOR_WHITE);
+    }
+    for(i = 0; i < 64; i++) {
+        glcd_plot(0, i, GLCD_COLOR_WHITE);
+    }
+    
+    
+    while(1) {
+        k = 0xff;
+        delay_ms(100);
+        glcd_write_data_at(0, 0, 0, k);
+        k = glcd_read_data_at(0, 0, 0);
+        step_report_set(step++ % 100);
+        delay_ms(100);
+        glcd_write_data_at(0, 0, 0, k);
+        step_report_set(step++ % 100);
     }
 }
 

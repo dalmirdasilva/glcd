@@ -30,10 +30,11 @@ void itoh(unsigned char i, char buffer[3]) {
 
 #include <delay.h>
 #include <lcd.c>
+#include <lcd_string.c>
 
 #include <glcd.c>
-//#include <glcd_straight.c>
-#include <glcd_buffered.c>
+#include <glcd_straight.c>
+//#include <glcd_buffered.c>
 #include <glcd_draw.c>
 #include <step_report_glcd.c>
 

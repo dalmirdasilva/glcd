@@ -41,7 +41,7 @@ SIGHANDLER(timer_0_handler) {
 
 
 
-            glcd_buffered_handle_interrupt();
+            //glcd_buffered_handle_interrupt();
         }
         
         // Enable after
